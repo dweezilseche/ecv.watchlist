@@ -3,10 +3,7 @@
 @section('title', 'Films Populaires')
 
 @section('content')
-    <h1>{{ $page_title }}</h1>
-    <p class="search_result">"{{ $search_result }}"</p>
-
-
+    {{-- <h1>{{ $page_title }}</h1> --}}
 
     @if (session('status'))
         <div class="alert alert-success" style="color: green;font-weight: bold;">
@@ -15,13 +12,15 @@
     @endif
 
 
-    @if ($movies_data->results) 
-        <section class="box_movies">
+    @if ($movies_data->results)
+        <p class="search_result">"{{ $search_result }}"</p>
+        <section class="box_movies results">
             @foreach ($movies_data->results as $movie)
                 <article>
                     {{-- <h2>{{ $movie->title }}</h2> --}}
                     <div class="box_poster">
-                        <img width="100%" src="https://image.tmdb.org/t/p/w500/{{ $movie->poster_path }}" alt="{{ $movie->title }}">
+                        <img width="100%" src="https://image.tmdb.org/t/p/w500/{{ $movie->poster_path }}"
+                            alt="{{ $movie->title }}">
                     </div>
                     {{-- <small>{{ $movie->id }}</small> --}}
 
@@ -46,8 +45,6 @@
     @if (!$movies_data->results)
         <p class="no_exist">Ce film n'existe pas...</p>
     @else
-        
     @endif
-    
-@endsection
 
+@endsection

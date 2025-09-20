@@ -15,7 +15,15 @@ h1 {
     margin: 0 0 0 0;
     color: #e6e6e6;
     text-align: center;
+    line-height: 85px;
     font-size: 80px;
+    font-weight: 300;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 300;
 }
 
 article h2 {
@@ -48,6 +56,7 @@ nav ul {
     list-style-type: none;
     display: flex;
     gap: 16px;
+    justify-self: end;
 }
 
 nav ul li a {
@@ -75,7 +84,12 @@ nav input[type="text"]::placeholder {
 }
 
 #search-form {
-    justify-self: end;
+    justify-self: center;
+}
+
+#section_genre {
+    justify-self: start;
+    /* border: 1px solid red; */
 }
 
 #genre {
@@ -85,9 +99,10 @@ nav input[type="text"]::placeholder {
     font-family: "Satoshi-Variable";
     font-size: 14px;
     cursor: pointer;
-    padding: 14px 24px;
+    padding: 14px 8px;
     border-radius: 30px;
     transition: 1.2s cubic-bezier(0.06, 0.645, 0, 0.985);
+    justify-self: start;
 }
 
 #genre,
@@ -136,6 +151,7 @@ option::checkmark {
 .switcher {
     display: flex;
     gap: 16px;
+    justify-self: start;
 }
 
 .switcher a {
@@ -156,6 +172,10 @@ option::checkmark {
     padding: 100px 0 0 0;
     gap: 2px;
     /* margin-top: 6rem; */
+}
+
+.box_movies.results {
+    padding-top: 200px;
 }
 
 .box_movies:hover .box_poster img {
@@ -249,6 +269,7 @@ input[type="submit"]:hover,
 
 #addlist-btn {
     width: 56px;
+    z-index: 98;
     height: 56px;
     position: absolute;
     top: 50%;
@@ -430,6 +451,7 @@ input[type="text"] {
 .detail_movie .details_infos ul li strong {
     font-weight: 600;
     color: #e6e6e6;
+    font-weight: 500;
 }
 
 .detail_movie .details_infos ul {
@@ -482,6 +504,15 @@ input[type="text"] {
     border-radius: 8px;
 }
 
+#back_btn i {
+    margin-right: 8px;
+}
+
+#back_btn a {
+    text-decoration: none;
+    color: #fff;
+}
+
 /* Labels & Filters */
 .label {
     padding: 8px 16px;
@@ -527,9 +558,11 @@ input[type="text"] {
 }
 
 /* Search & Results */
+
 #search-btn {
-    color: #000;
+    color: #fff;
     font-size: 15px;
+    outline: none;
 }
 
 #submit-search-btn {
@@ -540,6 +573,7 @@ input[type="text"] {
     color: #fff;
     text-align: center;
     font-weight: 300;
+    transform: translateY(120px);
 }
 
 .no_exist {

@@ -115,9 +115,11 @@ class MovieController extends Controller {
     public function getMoviesPopular(Request $request) {
         $page = $request->input('page', 1);
         $movies_data = $this->getCurlData('/movie/popular?language=fr-FR&page=' . $page);
+        // $exists = Movie::where('id_movie_tmdb', $movie)->exists();
 
         return view('movies.popular', [
             'movies_data' => $movies_data,
+            // 'exists' => $exists,
             'page_title' => 'Films du moment',
             'current_page' => $page, 
         ]);
