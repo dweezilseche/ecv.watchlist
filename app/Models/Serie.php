@@ -13,6 +13,12 @@ class Serie extends Model {
     protected $fillable = [
         'id_serie_tmdb',
         'name',
+        'image',
+        'director',
+        'backdrop',
+        'overview',
+        'seasons',
+        'episodes',
     ];
     
     public function genres(): BelongsToMany {

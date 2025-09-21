@@ -64,7 +64,8 @@ class SerieController extends Controller
         ]);
     }
 
-    public function getSeriesDetails(Request $request, Serie $movie) {
+    public function getSeriesDetails(Request $request, Serie $serie) {
+
         if ($serie) {
             return view('series.detail', [
                 'serie_data' => $serie,
@@ -103,6 +104,9 @@ class SerieController extends Controller
         if ($request->has('serie_id') && $request->input('serie_id') > 0) {
             $serie_data = $this->getCurlData('/tv/'.$request->input('serie_id').'?append_to_response=credits&language=fr-FR');
 
+            // dd($serie_data);
+
+
             // Check if the serie already exists
             $existingSerie = Serie::where('id_serie_tmdb', $serie_data->id)->first();
             if ($existingSerie) {
@@ -114,13 +118,27 @@ class SerieController extends Controller
             $serie->id_serie_tmdb = $serie_data->id;
             $serie->name = $serie_data->name;
             $serie->image = $serie_data->poster_path;
+            if(isset($serie_data->credits->crew)) {
+                foreach($serie_data->credits->crew as $crew) {
+                    if($crew->job === 'Executive Producer' || $crew->job === 'Director' || $crew->job === 'Creator') {
+                        $serie->director = $crew->name;
+                        break;
+                    }
+                }
+            }
+            $serie->backdrop = $serie_data->backdrop_path;
+            $serie->overview = $serie_data->overview;
+            $serie->seasons = $serie_data->number_of_seasons;
+            $serie->episodes = $serie_data->number_of_episodes;
             $serie->save();
             
             //ACTEUR (on enregitre les acteurs dans notre db)
             if(isset($serie_data->credits->cast)) {
                 foreach($serie_data->credits->cast as $api_actor) {
                     $actor = new Actor;
+                    $actor->id_actor_tmdb = $api_actor->id;
                     $actor->name = $api_actor->name;
+                    $actor->portrait = $api_actor->profile_path;
                     $actor->save();
                     $serie->actors()->attach($actor->id);
                 }
@@ -139,10 +157,30 @@ class SerieController extends Controller
 
             // IMAGE
             if (isset($serie_data->poster_path)) {
-                $path = 'poster/serie/'.$serie->id.'.jpg';
+                $path = 'poster/serie/cover/'.$serie->id.'.jpg';
                 $response = Http::get('https://image.tmdb.org/t/p/w500/'.$serie_data->poster_path);
                 Storage::disk('public')->put($path, $response->body());
             }
+
+            // IMAGE BACKDROP
+            if (isset($serie_data->backdrop_path)) {
+                $path = 'poster/serie/backdrop/'.$serie->id.'.jpg';
+                $response = Http::get('https://image.tmdb.org/t/p/w500/'.$serie_data->backdrop_path);
+                Storage::disk('public')->put($path, $response->body());
+            }
+
+            // IMAGE ACTORS
+            if (isset($serie_data->credits->cast)) {
+                foreach ($serie_data->credits->cast as $actor) {
+                    if (!empty($actor->profile_path)) {
+                        $path = 'poster/actors/'.$actor->id.'.jpg'; 
+                        $response = Http::get('https://image.tmdb.org/t/p/w500/'.$actor->profile_path);
+                        Storage::disk('public')->put($path, $response->body());
+                    }
+                }
+            }
+
+
 
             return Redirect::back()->with('status', 'Série ajoutée à la liste');
         }

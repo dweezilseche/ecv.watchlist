@@ -40,7 +40,10 @@
 
 
 
-        @if (Route::currentRouteName() === 'movies.detail_tmdb' || Route::currentRouteName() === 'series.detail_tmdb')
+        @if (Route::currentRouteName() === 'movies.detail_tmdb' ||
+                Route::currentRouteName() === 'series.detail_tmdb' ||
+                Route::currentRouteName() === 'movies.detail' ||
+                Route::currentRouteName() === 'series.detail')
             <div id="back_btn">
                 <a href="{{ url()->previous() }}"><i class="fa-solid fa-chevron-left"></i> Retour</a>
             </div>
@@ -77,14 +80,14 @@
         <ul>
             <li>
                 <a href="{{ route('home') }}"
-                    class="{{ request()->routeIs('home') || request()->routeIs('movies.detail_tmdb') || request()->routeIs('series.detail_tmdb') ? 'active' : '' }}">Ma
+                    class="{{ request()->routeIs('home') || request()->routeIs('movies.detail_tmdb') || request()->routeIs('series.detail_tmdb') || request()->routeIs('movies.detail') || request()->routeIs('series.detail') ? 'active' : '' }}">Ma
                     liste</a>
             </li>
 
             {{-- Actif si movies.popular OU series.popular --}}
             <li>
                 <a href="{{ route('movies.popular') }}"
-                    class="{{ request()->routeIs('*.popular') || request()->routeIs('*.detail_tmdb') ? 'active' : '' }}">
+                    class="{{ request()->routeIs('*.popular') || request()->routeIs('*.detail_tmdb') || request()->routeIs('*.detail') ? 'active' : '' }}">
                     Populaire
                 </a>
             </li>
@@ -92,14 +95,14 @@
             {{-- Actif si movies.top OU series.top --}}
             <li>
                 <a href="{{ route('movies.top') }}"
-                    class="{{ request()->routeIs('*.top') || request()->routeIs('*.detail_tmdb') ? 'active' : '' }}">
+                    class="{{ request()->routeIs('*.top') || request()->routeIs('*.detail_tmdb') || request()->routeIs('*.detail') ? 'active' : '' }}">
                     Top
                 </a>
             </li>
 
             <li>
                 <a href="{{ route('movies.index') }}"
-                    class="{{ request()->routeIs('movies.index') || request()->routeIs('movies.detail_tmdb') || request()->routeIs('series.detail_tmdb') ? 'active' : '' }}">Profil</a>
+                    class="{{ request()->routeIs('movies.index') || request()->routeIs('movies.detail_tmdb') || request()->routeIs('series.detail_tmdb') || request()->routeIs('movies.detail') || request()->routeIs('series.detail') ? 'active' : '' }}">Profil</a>
             </li>
         </ul>
     </nav>

@@ -50,7 +50,8 @@
                         </form>
 
                         <div class="box_poster">
-                            <img src="{{ Storage::url('poster/serie/' . $serie->id . '.jpg') }}" alt="{{ $serie->name }}">
+                            <img src="{{ Storage::url('poster/serie/cover/' . $serie->id . '.jpg') }}"
+                                alt="{{ $serie->name }}">
                         </div>
                     </article>
                 </a>

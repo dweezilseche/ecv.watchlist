@@ -26,15 +26,21 @@ return new class extends Migration
             $table->integer('id_serie_tmdb')->nullable();
             $table->string('name')->nullable();
             $table->string('image')->nullable();
+            $table->string('director')->nullable();
+            $table->string('backdrop')->nullable();
+            $table->mediumText('overview')->nullable();
+            $table->string('seasons')->nullable();
+            $table->string('episodes')->nullable();
             $table->boolean('seen')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
 
-
         Schema::create('actors', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_actor_tmdb')->nullable();
             $table->string('name')->nullable();
+            $table->string('portrait')->nullable();
             $table->timestamps();
         });
 
