@@ -163,6 +163,12 @@ option::checkmark {
     color: #fff;
 }
 
+#submit-search-btn {
+    border: none;
+    background: none;
+    color: #fff;
+}
+
 /* Movie Boxes */
 .box_movies {
     display: grid;

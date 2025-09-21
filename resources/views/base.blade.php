@@ -67,6 +67,9 @@
 
         <form action="{{ Route('movies.search') }}" method="GET" id="search-form">
             <input type="text" name="search" placeholder="Rechercher une série/film" id="search-btn">
+            <button type="submit" id="submit-search-btn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
             {{-- <input type="submit" value="Rechercher" id="submit-search-btn"> --}}
         </form>
 
