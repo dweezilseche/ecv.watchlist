@@ -33,11 +33,13 @@
                         </form>
 
 
-                        {{-- <form action="{{ Route('movies.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="movie_id" value="{{ $serie->id }}">
-                        <input type="submit" name="save_movie" value="Ajouter à ma liste" id="addlist-btn">
-                    </form> --}}
+                        <form action="{{ Route('series.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="serie_id" value="{{ $serie->id }}">
+                            <button type="submit" id="addlist-btn" class="btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </form>
 
 
                     </article>

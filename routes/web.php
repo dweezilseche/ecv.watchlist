@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MovieController::class, 'home'])->name('home');
 
+// Route::get('/', [SerieController::class, 'home'])->name('home');
+
 Route::controller(MovieController::class)->prefix('/movies')->name('movies.')->group(function () {
     // FRONT
     Route::get('/populaire', 'getMoviesPopular')->name('popular');
@@ -28,6 +30,9 @@ Route::controller(SerieController::class)->prefix('/series')->name('series.')->g
     Route::get('/populaire', 'getSeriesPopular')->name('popular');
     Route::get('/top', 'getSeriesTop')->name('top');
     Route::get('/detail_tmdb/{serie}', 'getSeriesDetailsTMDB')->name('detail_tmdb');
+    Route::get('/detail/{movie}', 'getSeriesDetails')->name('detail');
+    Route::post('/seen', 'setSerieSeen')->name('seen');
+    Route::post('/store', 'storeSerie')->name('store');
 
 });
 

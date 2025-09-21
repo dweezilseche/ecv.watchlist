@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Movie;
 use App\Models\Genre;
 use App\Models\Actor;
+use App\Models\Serie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
@@ -17,11 +18,14 @@ class MovieController extends Controller {
         $movies = Movie::where('seen', 0)->with('genres')->get()->unique('id_movie_tmdb');
         $genres = $movies->flatMap->genres->unique('id');
         $genresWithCount = Genre::withCount('movies')->get();
+        $series = Serie::where('seen', 0)->with('genres')->get()->unique('id_serie_tmdb');
+
 
         // dd($genresWithCount);
 
         return view('home', [
             'movies_data' => $movies,
+            'series_data' => $series,
             'genres' => $genres,
             'genresWithCount' => $genresWithCount,
         ]);
@@ -187,7 +191,7 @@ class MovieController extends Controller {
 
             // IMAGE
             if (isset($movie_data->poster_path)) {
-                $path = 'poster/'.$movie->id.'.jpg';
+                $path = 'poster/movie/'.$movie->id.'.jpg';
                 $response = Http::get('https://image.tmdb.org/t/p/w500/'.$movie_data->poster_path);
                 Storage::disk('public')->put($path, $response->body());
             }

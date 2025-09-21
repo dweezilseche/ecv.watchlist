@@ -29,25 +29,29 @@
                             </button>
                         </form>
 
-                        {{-- <form action="{{ Route('movies.detail') }}" method="GET">
-                        @csrf
-                        <input type="hidden" name="id_movie" value="{{ $movie->id }}">
-                        <input type="submit" value="Plus d'infos" id="infos-btn">
-                    </form> --}}
-                        {{--                     
-                    <div class="labels_genre_home">
-                        @foreach ($movie->genres as $genre)
-                            <div class="label"><p>{{ $genre->name }}</p></div>
-                        @endforeach
-                    </div> --}}
+                        <div class="box_poster">
+                            <img src="{{ Storage::url('poster/movie/' . $movie->id . '.jpg') }}" alt="{{ $movie->name }}">
+                        </div>
+                    </article>
+                </a>
+            @endforeach
+        </section>
+
+        <section class="box_movies">
+            @foreach ($series_data as $serie)
+                <a href="{{ Route('series.detail', $serie->id) }}">
+                    <article class="serie">
+                        <form action="{{ Route('series.seen') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="id_serie" value="{{ $serie->id }}">
+                            <button type="submit" id="addlist-btn" class="btn">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                        </form>
 
                         <div class="box_poster">
-                            <img src="{{ Storage::url('poster/' . $movie->id . '.jpg') }}" alt="{{ $movie->name }}">
+                            <img src="{{ Storage::url('poster/serie/' . $serie->id . '.jpg') }}" alt="{{ $serie->name }}">
                         </div>
-                        {{-- @foreach ($movie->genres as $genre)
-                        <small>{{ $genre->name }}</small>
-                    @endforeach --}}
-                        {{-- <h2>{{ $movie->name }}</h2> --}}
                     </article>
                 </a>
             @endforeach

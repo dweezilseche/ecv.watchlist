@@ -20,6 +20,8 @@
 
 <body>
     <nav>
+
+
         @if (Route::currentRouteName() === 'home' || Route::currentRouteName() === 'genres.genre')
             <section id="section_genre">
                 @isset($genresWithCount)

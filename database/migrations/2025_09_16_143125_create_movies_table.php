@@ -21,6 +21,16 @@ return new class extends Migration
             $table->softDeletes();
         });
 
+        Schema::create('series', function (Blueprint $table) {
+            $table->id();
+            $table->integer('id_serie_tmdb')->nullable();
+            $table->string('name')->nullable();
+            $table->string('image')->nullable();
+            $table->boolean('seen')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
 
         Schema::create('actors', function (Blueprint $table) {
             $table->id();
@@ -33,6 +43,13 @@ return new class extends Migration
             $table->unsignedBigInteger('movie_id');
             $table->foreign('actor_id')->references('id')->on('actors')->onDelete('cascade');;
             $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');;
+        });
+
+        Schema::create('actor_serie', function (Blueprint $table) {
+            $table->unsignedBigInteger('actor_id');
+            $table->unsignedBigInteger('serie_id');
+            $table->foreign('actor_id')->references('id')->on('actors')->onDelete('cascade');;
+            $table->foreign('serie_id')->references('id')->on('series')->onDelete('cascade');;
         });
 
 
@@ -50,6 +67,13 @@ return new class extends Migration
             $table->unsignedBigInteger('movie_id');
             $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');;
             $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');;
+        });
+
+        Schema::create('genre_serie', function (Blueprint $table) {
+            $table->unsignedBigInteger('genre_id');
+            $table->unsignedBigInteger('serie_id');
+            $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');;
+            $table->foreign('serie_id')->references('id')->on('series')->onDelete('cascade');;
         });
     }
 
