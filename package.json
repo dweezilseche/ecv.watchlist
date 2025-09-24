@@ -6,7 +6,7 @@
         "build": "vite build",
         "dev": "vite",
         "sass": "sass resources/scss/style.scss public/css/style.css",
-        "sass:watch": "sass --watch resources/scss/style.scss:public/css/style.css",
+        "sass:watch": "sass --watch resources/scss:public/css",
         "sass:compressed": "sass resources/scss/style.scss public/css/style.css --style compressed"
     },
     "devDependencies": {

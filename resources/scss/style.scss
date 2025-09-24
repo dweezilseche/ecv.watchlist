@@ -195,6 +195,21 @@ option {
   }
 }
 
+#number_results {
+  font-size: 14px;
+  justify-self: start;
+
+  p {
+    color: #fff;
+    font-size: 16px;
+  }
+
+  em {
+    font-weight: 700;
+    font-style: normal;
+  }
+}
+
 #submit-search-btn {
   border: none;
   background: none;

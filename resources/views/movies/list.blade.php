@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('title', 'Films Populaires')
+@section('title', 'Résultat de la recherche | Films')
 
 @section('content')
     {{-- <h1>{{ $page_title }}</h1> --}}
@@ -14,6 +14,7 @@
 
     @if ($movies_data->results)
         <p class="search_result">"{{ $search_result }}"</p>
+
         <section class="box_movies results">
             @foreach ($movies_data->results as $movie)
                 <article>
