@@ -155,6 +155,8 @@ class MovieController extends Controller {
         if ($request->has('movie_id') && $request->input('movie_id') > 0) {
             $movie_data = $this->getCurlData('/movie/'.$request->input('movie_id').'?append_to_response=credits&language=fr-FR');
 
+            // dd($movie_data);
+
             // Check if the movie already exists
             $existingMovie = Movie::where('id_movie_tmdb', $movie_data->id)->first();
             if ($existingMovie) {
@@ -165,6 +167,17 @@ class MovieController extends Controller {
             $movie = new Movie;
             $movie->id_movie_tmdb = $movie_data->id;
             $movie->name = $movie_data->title;
+            $movie->backdrop = $movie_data->backdrop_path;
+            $movie->overview = $movie_data->overview;
+            $movie->duration = $movie_data->runtime;
+            if(isset($movie_data->credits->crew)) {
+                foreach($movie_data->credits->crew as $crew) {
+                    if($crew->job === 'Director') {
+                        $movie->director = $crew->name;
+                        break;
+                    }
+                }
+            }
             $movie->image = $movie_data->poster_path;
             $movie->save();
             
@@ -173,6 +186,8 @@ class MovieController extends Controller {
                 foreach($movie_data->credits->cast as $api_actor) {
                     $actor = new Actor;
                     $actor->name = $api_actor->name;
+                    $actor->id_actor_tmdb = $api_actor->id;
+                    $actor->portrait = $api_actor->profile_path;
                     $actor->save();
                     $movie->actors()->attach($actor->id);
                 }
@@ -189,11 +204,30 @@ class MovieController extends Controller {
                 }
             }
 
+            //ICI ON ENREGISTRE SUR NOTRE DISK
             // IMAGE
             if (isset($movie_data->poster_path)) {
-                $path = 'poster/movie/'.$movie->id.'.jpg';
+                $path = 'poster/movie/cover/'.$movie->id.'.jpg';
                 $response = Http::get('https://image.tmdb.org/t/p/w500/'.$movie_data->poster_path);
                 Storage::disk('public')->put($path, $response->body());
+            }
+
+            //IMAGE BACKDROP
+            if (isset($movie_data->backdrop_path)) {
+                $path = 'poster/movie/backdrop/' . $movie->id . '.jpg';
+                $response = Http::get('https://image.tmdb.org/t/p/w500/'.$movie_data->backdrop_path);
+                Storage::disk('public')->put($path, $response->body());
+            }
+
+            // IMAGE ACTORS
+            if (isset($movie_data->credits->cast)) {
+                foreach ($movie_data->credits->cast as $actor) {
+                    if (!empty($actor->profile_path)) {
+                        $path = 'poster/actors/'.$actor->id.'.jpg'; 
+                        $response = Http::get('https://image.tmdb.org/t/p/w500/'.$actor->profile_path);
+                        Storage::disk('public')->put($path, $response->body());
+                    }
+                }
             }
 
             return Redirect::back()->with('status', 'Film ajouté à la liste');

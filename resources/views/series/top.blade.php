@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('title', 'Films les mieux notés')
+@section('title', 'Séries les mieux notés')
 
 @section('content')
     {{-- <h1>{{ $page_title }}</h1> --}}
@@ -15,7 +15,7 @@
 
 
     @if ($series_data)
-        <section class="box_movies">
+        <section class="box_movies no_padding">
             @foreach ($series_data as $serie)
                 <a href="{{ Route('series.detail_tmdb', ['serie' => $serie->id]) }}">
                     <article>
@@ -30,19 +30,20 @@
                         </div>
 
 
+                        <form action="{{ Route('series.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="serie_id" value="{{ $serie->id }}">
+                            <button type="submit" id="addlist-btn" class="btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </form>
 
 
-                        {{-- <form action="{{ Route('movies.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="movie_id" value="{{ $movie->id }}">
-                        <input type="submit" name="save_movie" value="À voir" id="addlist-btn">
-                    </form> --}}
-
-                        <form action="{{ Route('series.detail_tmdb', ['serie' => $serie->id]) }}" method="GET">
+                        {{-- <form action="{{ Route('series.detail_tmdb', ['serie' => $serie->id]) }}" method="GET">
                             @csrf
                             <input type="hidden" name="serie_id" value="{{ $serie->id }}">
                             <input type="submit" name="see_details" value="Voir plus +" id="detail-btn">
-                        </form>
+                        </form> --}}
 
 
                     </article>

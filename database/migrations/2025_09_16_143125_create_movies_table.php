@@ -16,6 +16,10 @@ return new class extends Migration
             $table->integer('id_movie_tmdb')->nullable();
             $table->string('name')->nullable();
             $table->string('image')->nullable();
+            $table->string('director')->nullable();
+            $table->string('backdrop')->nullable();
+            $table->mediumText('overview')->nullable();
+            $table->string('duration')->nullable();
             $table->boolean('seen')->default(0);
             $table->timestamps();
             $table->softDeletes();

@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('title', 'Films Populaires')
+@section('title', 'Séries Populaires')
 
 @section('content')
     {{-- <h1>{{ $page_title }}</h1> --}}
@@ -15,7 +15,7 @@
 
 
     @if ($series_data->results)
-        <section class="box_movies">
+        <section class="box_movies no_padding">
             @foreach ($series_data->results as $serie)
                 <a href="{{ route('series.detail_tmdb', ['serie' => $serie->id]) }}">
                     <article>

@@ -15,7 +15,7 @@
 
 
     @if ($movies_data)
-        <section class="box_movies">
+        <section class="box_movies no_padding">
             @foreach ($movies_data as $movie)
                 <a href="{{ Route('movies.detail_tmdb', ['movie' => $movie->id]) }}">
                     <article>
