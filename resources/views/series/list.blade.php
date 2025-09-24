@@ -18,28 +18,38 @@
     @if ($movies_data->results)
         <section class="box_movies">
             @foreach ($movies_data->results as $movie)
-                <article>
-                    {{-- <h2>{{ $movie->title }}</h2> --}}
-                    <div class="box_poster">
-                        <img width="100%" src="https://image.tmdb.org/t/p/w500/{{ $movie->poster_path }}"
-                            alt="{{ $movie->title }}">
-                    </div>
-                    {{-- <small>{{ $movie->id }}</small> --}}
+                <a href="{{ route('movies.detail_tmdb', ['movie' => $movie->id]) }}">
+                    <article>
+                        {{-- <h2>{{ $movie->title }}</h2> --}}
+                        <div class="box_poster">
+                            <img width="100%" src="https://image.tmdb.org/t/p/w500/{{ $movie->poster_path }}"
+                                alt="{{ $movie->title ?? $movie->name }}">
+                            <div class="cache"></div>
+                        </div>
+                        {{-- <small>{{ $movie->id }}</small> --}}
 
-                    <form action="{{ Route('movies.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="movie_id" value="{{ $movie->id }}">
-                        <input type="submit" name="save_movie" value="À voir" id="addlist-btn">
-                    </form>
+                        <form action="{{ Route('movies.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="movie_id" value="{{ $movie->id }}">
+                            <button type="submit" id="addlist-btn" class="btn">
+                                <i class="fa-regular fa-heart"></i>
+                                {{-- @if (!$exists)
+                                    <i class="fa-regular fa-heart"></i>
+                                @else
+                                    <i class="fa-solid fa-heart"></i>
+                                @endif --}}
+                            </button>
+                        </form>
 
-                    <form action="{{ Route('movies.detail_tmdb', [$movie->id]) }}" method="GET">
-                        @csrf
-                        <input type="hidden" name="movie_id" value="{{ $movie->id }}">
-                        <input type="submit" name="see_details" value="Voir plus" id="detail-btn">
-                    </form>
+                        <form action="{{ Route('movies.detail', ['movie' => $movie->id]) }}" method="GET">
+                            @csrf
+                            <input type="hidden" name="movie_id" value="{{ $movie->id }}">
+                            <input type="submit" name="see_details" value="Voir plus +" id="detail-btn">
+                        </form>
 
 
-                </article>
+                    </article>
+                </a>
             @endforeach
         </section>
     @endif
