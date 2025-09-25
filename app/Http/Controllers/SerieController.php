@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Movie;
 use App\Models\Genre;
 use App\Models\Actor;
+use App\Models\Episode;
 use App\Models\Serie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -65,7 +65,8 @@ class SerieController extends Controller
     }
 
     public function getSeriesDetails(Request $request, Serie $serie) {
-
+        $serie->load('episodes', 'genres', 'actors');
+        
         if ($serie) {
             return view('series.detail', [
                 'serie_data' => $serie,
@@ -114,6 +115,25 @@ class SerieController extends Controller
         ]);
     }
 
+    public function filterEpisodes(Request $request, Serie $serie) {
+        $serie->load('genres', 'actors');
+        
+        $episodesQuery = Episode::where('id_serie_tmdb', $serie->id_serie_tmdb);
+        
+        if ($request->has('season') && $request->season != '') {
+            $episodesQuery->where('season_number', $request->season);
+        }
+        
+        $episodes = $episodesQuery->get();
+        
+        return view('series.detail', [
+            'serie_data' => $serie,
+            'episodes' => $episodes,
+            'selected_season' => $request->season,
+            'page_title' => 'Détails de la série',
+        ]);
+    }
+
 
     public function storeSerie(Request $request) {
 
@@ -123,13 +143,13 @@ class SerieController extends Controller
             // dd($serie_data);
 
 
-            // Check if the serie already exists
+            // Voir si la série existe déjà en base
             $existingSerie = Serie::where('id_serie_tmdb', $serie_data->id)->first();
             if ($existingSerie) {
                 return Redirect::back()->with('status', 'Cette série est déjà dans la liste');
             }
 
-            //serieS (on enregistre les series dans notre db)
+            //SERIES (on enregistre les series dans notre db)
             $serie = new Serie;
             $serie->id_serie_tmdb = $serie_data->id;
             $serie->name = $serie_data->name;
@@ -145,26 +165,33 @@ class SerieController extends Controller
             $serie->backdrop = $serie_data->backdrop_path;
             $serie->overview = $serie_data->overview;
             $serie->seasons = $serie_data->number_of_seasons;
-            $serie->episodes = $serie_data->number_of_episodes;
+            $serie->episode_count = $serie_data->number_of_episodes;
+            $serie->save();
 
-            // RÉCUPÉRER TOUTES LES SAISONS ET ÉPISODES
-            $all_seasons = [];
-            for ($season_number = 1; $season_number <= $serie_data->number_of_seasons; $season_number++) {
-                $season_data = $this->getCurlData("/tv/{$request->input('serie_id')}/season/{$season_number}?language=fr-FR");
-                if ($season_data) {
-                    // Store only essential data instead of full API response
+
+            //EPISODE (on enregistre les saisons dans notre db)
+            if(isset($serie_data->seasons)) {
+                foreach($serie_data->seasons as $api_season) {
+                    if ($api_season->season_number == 0) continue;
+                    $season_data = $this->getCurlData('/tv/'.$request->input('serie_id').'/season/'.$api_season->season_number.'?language=fr-FR');
                     
-                    $all_seasons[] = [
-                        'id' => $season_data->id,
-                        'name' => $season_data->name,
-                        'season_number' => $season_data->season_number,
-                    ];
+                    if ($season_data && isset($season_data->episodes)) {
+                        foreach($season_data->episodes as $api_episode) { // Don't use $episode as variable name
+                            $newEpisode = new Episode; // Use different variable name
+                            $newEpisode->id_serie_tmdb = $serie_data->id;
+                            $newEpisode->name = $api_episode->name; // Episode name
+                            $newEpisode->overview = $api_episode->overview; // Episode overview
+                            $newEpisode->season_number = $api_episode->season_number;
+                            $newEpisode->episode_number = $api_episode->episode_number; // Add this
+                            $newEpisode->air_date = $api_episode->air_date; // Add this
+                            $newEpisode->save();
+                        }
+                    }
                 }
             }
-            $serie->all_seasons = json_encode($all_seasons);
-            
-            $serie->save();
-            
+
+
+
             //ACTEUR (on enregitre les acteurs dans notre db)
             if(isset($serie_data->credits->cast)) {
                 foreach($serie_data->credits->cast as $api_actor) {
@@ -217,8 +244,8 @@ class SerieController extends Controller
 
             return Redirect::back()->with('status', 'Série ajoutée à la liste');
         }
+    
     }
-
 
 
     public function getCurlData($url) {

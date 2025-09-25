@@ -34,8 +34,20 @@ return new class extends Migration
             $table->string('backdrop')->nullable();
             $table->mediumText('overview')->nullable();
             $table->string('seasons')->nullable();
-            $table->string('episodes')->nullable();
-            $table->longText('all_seasons')->nullable();
+            $table->integer('episode_count')->nullable();
+            $table->boolean('seen')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('episodes', function (Blueprint $table) {
+            $table->id();
+            $table->integer('id_serie_tmdb')->nullable();
+            $table->string('season_number')->nullable();
+            $table->integer('episode_number')->nullable();
+            $table->string('name')->nullable();
+            $table->mediumText('overview')->nullable();
+            $table->date('air_date')->nullable();
             $table->boolean('seen')->default(0);
             $table->timestamps();
             $table->softDeletes();

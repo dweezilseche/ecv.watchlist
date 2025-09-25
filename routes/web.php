@@ -31,6 +31,7 @@ Route::controller(SerieController::class)->prefix('/series')->name('series.')->g
     Route::get('/top', 'getSeriesTop')->name('top');
     Route::get('/detail_tmdb/{serie}', 'getSeriesDetailsTMDB')->name('detail_tmdb');
     Route::get('/detail/{serie}', 'getSeriesDetails')->name('detail');
+    Route::get('/{serie}/episodes', 'filterEpisodes')->name('filter.episodes');
     Route::post('/seen', 'setSerieSeen')->name('seen');
     Route::post('/store', 'storeSerie')->name('store');
     Route::get('/search', 'getSearch')->name('search');

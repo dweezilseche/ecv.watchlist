@@ -44,6 +44,7 @@
                 Route::currentRouteName() === 'movies.detail' ||
                 Route::currentRouteName() === 'series.detail' ||
                 Route::currentRouteName() === 'movies.search' ||
+                Route::currentRouteName() === 'series.filter.episodes' ||
                 Route::currentRouteName() === 'series.search')
             <div id="back_btn">
                 <a href="{{ url()->previous() }}"><i class="fa-solid fa-chevron-left"></i> Retour</a>
@@ -84,7 +85,8 @@
                 Route::currentRouteName() === 'series.top' ||
                 Route::currentRouteName() === 'series.search' ||
                 Route::currentRouteName() === 'series.detail_tmdb' ||
-                Route::currentRouteName() === 'series.detail')
+                Route::currentRouteName() === 'series.detail' ||
+                Route::currentRouteName() === 'series.filter.episodes')
             <form action="{{ Route('series.search') }}" method="GET" id="search-form">
                 <input type="text" name="search" placeholder="Rechercher une série" id="search-btn">
                 <button type="submit" id="submit-search-btn">

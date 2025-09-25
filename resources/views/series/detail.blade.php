@@ -61,7 +61,7 @@
                                     {{ \Carbon\Carbon::parse($serie_data->first_air_date)->locale('fr')->isoFormat('D MMMM YYYY') }}
                                 </li> --}}
                                 <li><strong>Nombre de saisons :</strong> {{ $serie_data->seasons }} </li>
-                                <li><strong>Nombre d'épisodes :</strong> {{ $serie_data->episodes }}</li>
+                                <li><strong>Nombre d'épisodes :</strong> {{ $serie_data->episode_count }}</li>
                                 {{-- <li><strong>Note moyenne :</strong> {{ $serie_data->vote_average }} / 10
                                     ({{ $serie_data->vote_count }} votes)</li> --}}
                             </ul>
@@ -98,20 +98,43 @@
 
                     <div class="all_episodes">
                         <h2>Tous les épisodes</h2>
-                        <select name="seasons" id="season_selector">
-                            <option value="season_1">Saison 1</option>
-                        </select>
 
-                        <div class="episode">
-                            <h3>Episode XX - Titre de l'épisode</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo qui sapiente aut
-                                exercitationem, delectus blanditiis itaque vero, modi fugiat tempore libero consequuntur
-                                soluta quia, laboriosam maiores saepe quam obcaecati. Dicta?</p>
+                        {{-- <pre style="color: white;">{{ print_r($episodes->toArray(), true) }}</pre> --}}
+
+                        <form action="{{ route('series.filter.episodes', $serie_data->id) }}" method="GET">
+                            <select name="season" id="season_selector" onchange="this.form.submit()">
+                                <option value="">Toutes les saisons</option>
+                                @for ($i = 0; $i < $serie_data->seasons; $i++)
+                                    <option value="{{ $i + 1 }}"
+                                        {{ request('season') == $i + 1 ? 'selected' : '' }}>
+                                        Saison {{ $i + 1 }}
+                                    </option>
+                                @endfor
+                            </select>
+                        </form>
+
+                        <div class="episode_list">
+                            @if (isset($selected_season))
+                                @foreach ($selected_season ? $episodes->where('season_number', $selected_season) : $episodes as $episode)
+                                    <div class="episode">
+
+                                        <form action="{{ Route('series.store') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="serie_id" value="{{ $serie_data->id_serie }}">
+                                            <button type="submit" id="seen-btn" class="btn">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </button>
+                                        </form>
+
+                                        <h3>Episode {{ $episode->episode_number }} - {{ $episode->name }}</h3>
+                                        <p>{{ $episode->overview }}</p>
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
-                </div>
 
-            </div>
+                </div>
         </section>
     @endif
 

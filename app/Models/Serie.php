@@ -18,7 +18,7 @@ class Serie extends Model {
         'backdrop',
         'overview',
         'seasons',
-        'episodes',
+        'episode_count', // Renamed from 'episodes' to 'episode_count'
         'all_seasons',
     ];
     
@@ -34,4 +34,8 @@ class Serie extends Model {
         return $this->belongsToMany(Actor::class);
     }
 
+    public function episodes()
+    {
+        return $this->hasMany(Episode::class, 'id_serie_tmdb', 'id_serie_tmdb');
+    }
 }
