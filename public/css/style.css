@@ -115,7 +115,7 @@ select::picker(select) {
   line-height: 32px;
   border: none;
   position: relative;
-  top: anchor(bottom);
+  top: anchor(bottom) !important;
   left: anchor(top) !important;
   margin-top: 8px;
 }
@@ -453,7 +453,7 @@ input[type=text] {
   line-height: 28px;
 }
 .detail_movie .all_episodes {
-  padding: 32px 0;
+  padding: 32px 0 30vh 0;
   grid-area: episodes;
   color: #d1d1d1;
 }
@@ -462,7 +462,6 @@ input[type=text] {
 }
 .detail_movie .episode_list {
   padding: 32px 0 16px 0;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.084);
 }
 .detail_movie .episode_list h3 {
   color: #d1d1d1;
@@ -474,10 +473,12 @@ input[type=text] {
 }
 .detail_movie .episode_list .episode {
   margin-bottom: 32px;
+  width: 100%;
   transition: 1.4s cubic-bezier(0.06, 0.645, 0, 0.985);
   display: grid;
-  column-gap: 16px;
-  grid-template-columns: 1fr auto;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.084);
+  padding: 0 0 24px 0;
+  grid-template-columns: 1fr 10fr;
   grid-template-areas: "btn  title" ".  overview";
 }
 .detail_movie .boutons_infos {

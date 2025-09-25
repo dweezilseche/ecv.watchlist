@@ -101,6 +101,8 @@ class SerieController extends Controller
         return back();
     }
 
+
+
     public function setSeasonSeen(Request $request, Serie $serie, $seasonNumber) {
         Episode::where('id_serie_tmdb', $serie->id_serie_tmdb)
             ->where('season_number', $seasonNumber)

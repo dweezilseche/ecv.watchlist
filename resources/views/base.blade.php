@@ -43,11 +43,13 @@
                 Route::currentRouteName() === 'series.detail_tmdb' ||
                 Route::currentRouteName() === 'movies.detail' ||
                 Route::currentRouteName() === 'series.detail' ||
-                Route::currentRouteName() === 'movies.search' ||
-                Route::currentRouteName() === 'series.filter.episodes' ||
-                Route::currentRouteName() === 'series.search')
+                Route::currentRouteName() === 'movies.search')
             <div id="back_btn">
                 <a href="{{ url()->previous() }}"><i class="fa-solid fa-chevron-left"></i> Retour</a>
+            </div>
+        @elseif (Route::currentRouteName() === 'series.filter.episodes' || Route::currentRouteName() === 'series.search')
+            <div id="back_btn">
+                <a href="{{ route('home') }}"><i class="fa-solid fa-chevron-left"></i> Retour</a>
             </div>
         @endif
 

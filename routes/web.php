@@ -35,6 +35,7 @@ Route::controller(SerieController::class)->prefix('/series')->name('series.')->g
     Route::post('/seen', 'setSerieSeen')->name('seen');
     Route::post('/seen/{episode}', 'setEpisodeSeen')->name('seen.episode');
     Route::post('/seen/season/{serie}/{season}', 'setSeasonSeen')->name('seen.season');
+    Route::post('/seen/{serie}/completed', 'setSerieCompleted')->name('seen.completed');
     Route::post('/store', 'storeSerie')->name('store');
     Route::get('/search', 'getSearch')->name('search');
 

@@ -115,10 +115,10 @@
                         </form>
 
                         <div class="episode_list">
-                            @if (isset($selected_season))
-                                @foreach ($selected_season ? $episodes->where('season_number', $selected_season) : $episodes as $episode)
+                            @if (isset($episodes) && count($episodes) > 0)
+                                @foreach ($episodes as $episode)
                                     <div class="episode">
-                                        <form action="{{ Route('series.seen.episode', $episode->id) }}" method="POST">
+                                        <form action="{{ route('series.seen.episode', $episode->id) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="id_episode" value="{{ $episode->id }}">
                                             @if ($episode->seen == 0)
@@ -137,16 +137,18 @@
                                     </div>
                                 @endforeach
 
-
-                                <form
-                                    action="{{ route('series.seen.season', ['serie' => $serie_data->id, 'season' => $episode->season_number]) }}"
-                                    method="POST">
-                                    @csrf
-
-                                    <button type="submit" id="seen-btn" class="unseen_season">
-                                        <i class="fa-solid fa-check"></i> Saison terminée
-                                    </button>
-                                </form>
+                                @if (isset($selected_season) && $selected_season)
+                                    <form
+                                        action="{{ route('series.seen.season', ['serie' => $serie_data->id, 'season' => $selected_season]) }}"
+                                        method="POST">
+                                        @csrf
+                                        <button type="submit" id="seen-btn" class="unseen_season">
+                                            <i class="fa-solid fa-check"></i> Saison {{ $selected_season }} terminée
+                                        </button>
+                                    </form>
+                                @endif
+                            @else
+                                <p>Aucun épisode trouvé</p>
                             @endif
                         </div>
                     </div>
