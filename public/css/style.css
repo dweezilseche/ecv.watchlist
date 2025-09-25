@@ -523,10 +523,10 @@ input[type=text] {
 #seen-btn.unseen_season {
   height: 40px;
   grid-area: btn;
-  border: 1px dashed #b6b3b3;
   padding: 0 16px;
-  background: none;
-  color: #b6b3b3;
+  background: #e50914;
+  border: none;
+  color: #e6e6e6;
   font-family: "Satoshi-Variable";
   border-radius: 50px;
   transition: 1.4s cubic-bezier(0.06, 0.645, 0, 0.985);

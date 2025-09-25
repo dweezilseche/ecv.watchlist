@@ -607,10 +607,10 @@ input[type="text"] {
 #seen-btn.unseen_season {
   height: 40px;
   grid-area: btn;
-  border: 1px dashed $text-muted;
   padding: 0 16px;
-  background: none;
-  color: $text-muted;
+  background: $primary-red;
+  border: none;
+  color: $text-light;
   font-family: "Satoshi-Variable";
   border-radius: 50px;
   transition: $transition-smooth;

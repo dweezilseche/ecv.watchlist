@@ -142,6 +142,7 @@
                                     action="{{ route('series.seen.season', ['serie' => $serie_data->id, 'season' => $episode->season_number]) }}"
                                     method="POST">
                                     @csrf
+
                                     <button type="submit" id="seen-btn" class="unseen_season">
                                         <i class="fa-solid fa-check"></i> Saison terminée
                                     </button>
