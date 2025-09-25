@@ -134,6 +134,15 @@ class SerieController extends Controller
         ]);
     }
 
+    public function setEpisodeSeen(Request $request) {
+        if ($request->has('id_episode')) {
+            $episode = Episode::find($request->input('id_episode'));
+            $episode->seen = 1;
+            $episode->save();
+        }
+        return back();
+    }
+
 
     public function storeSerie(Request $request) {
 

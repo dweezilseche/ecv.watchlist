@@ -486,7 +486,7 @@ input[type=text] {
   border-radius: 8px;
 }
 
-#seen-btn {
+#seen-btn.unseen {
   width: 40px;
   height: 40px;
   grid-area: btn;
@@ -497,7 +497,24 @@ input[type=text] {
   border-radius: 50px;
   transition: 1.4s cubic-bezier(0.06, 0.645, 0, 0.985);
 }
-#seen-btn:hover {
+#seen-btn.unseen:hover {
+  background-color: #fff;
+  cursor: pointer;
+  color: #000;
+}
+
+#seen-btn.seen {
+  width: 40px;
+  height: 40px;
+  grid-area: btn;
+  border: none;
+  background: #e50914;
+  color: #e6e6e6;
+  font-family: "Satoshi-Variable";
+  border-radius: 50px;
+  transition: 1.4s cubic-bezier(0.06, 0.645, 0, 0.985);
+}
+#seen-btn.seen:hover {
   background-color: #fff;
   cursor: pointer;
   color: #000;

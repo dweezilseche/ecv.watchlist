@@ -33,6 +33,7 @@ Route::controller(SerieController::class)->prefix('/series')->name('series.')->g
     Route::get('/detail/{serie}', 'getSeriesDetails')->name('detail');
     Route::get('/{serie}/episodes', 'filterEpisodes')->name('filter.episodes');
     Route::post('/seen', 'setSerieSeen')->name('seen');
+    Route::post('/seen/{episode}', 'setEpisodeSeen')->name('seen.episode');
     Route::post('/store', 'storeSerie')->name('store');
     Route::get('/search', 'getSearch')->name('search');
 

@@ -578,13 +578,26 @@ input[type="text"] {
   }
 }
 
-#seen-btn {
+#seen-btn.unseen {
   width: 40px;
   height: 40px;
   grid-area: btn;
   border: 1px dashed $text-muted;
   background: none;
   color: $text-muted;
+  font-family: "Satoshi-Variable";
+  border-radius: 50px;
+  transition: $transition-smooth;
+  @include button-hover;
+}
+
+#seen-btn.seen {
+  width: 40px;
+  height: 40px;
+  grid-area: btn;
+  border: none;
+  background: $primary-red;
+  color: $text-light;
   font-family: "Satoshi-Variable";
   border-radius: 50px;
   transition: $transition-smooth;
