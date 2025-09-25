@@ -101,6 +101,23 @@ class SerieController extends Controller
         return back();
     }
 
+    public function setSeasonSeen(Request $request, Serie $serie, $seasonNumber) {
+        Episode::where('id_serie_tmdb', $serie->id_serie_tmdb)
+            ->where('season_number', $seasonNumber)
+            ->update(['seen' => 1]);
+
+        return back();
+    }
+
+    public function setEpisodeSeen(Request $request) {
+        if ($request->has('id_episode')) {
+            $episode = Episode::find($request->input('id_episode'));
+            $episode->seen = 1;
+            $episode->save();
+        }
+        return back();
+    }
+
 
     public function getSeriesDetailsTMDB(int $serie)
     {
@@ -132,15 +149,6 @@ class SerieController extends Controller
             'selected_season' => $request->season,
             'page_title' => 'Détails de la série',
         ]);
-    }
-
-    public function setEpisodeSeen(Request $request) {
-        if ($request->has('id_episode')) {
-            $episode = Episode::find($request->input('id_episode'));
-            $episode->seen = 1;
-            $episode->save();
-        }
-        return back();
     }
 
 

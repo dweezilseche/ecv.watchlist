@@ -604,6 +604,23 @@ input[type="text"] {
   @include button-hover;
 }
 
+#seen-btn.unseen_season {
+  height: 40px;
+  grid-area: btn;
+  border: 1px dashed $text-muted;
+  padding: 0 16px;
+  background: none;
+  color: $text-muted;
+  font-family: "Satoshi-Variable";
+  border-radius: 50px;
+  transition: $transition-smooth;
+  @include button-hover;
+
+  i {
+    margin-right: 8px;
+  }
+}
+
 .gradient {
   width: 100%;
   height: 100%;
