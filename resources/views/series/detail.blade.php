@@ -117,16 +117,15 @@
                             @if (isset($selected_season))
                                 @foreach ($selected_season ? $episodes->where('season_number', $selected_season) : $episodes as $episode)
                                     <div class="episode">
-
                                         <form action="{{ Route('series.store') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="serie_id" value="{{ $serie_data->id_serie }}">
                                             <button type="submit" id="seen-btn" class="btn">
-                                                <i class="fa-regular fa-heart"></i>
+                                                <i class="fa-solid fa-check"></i>
                                             </button>
                                         </form>
 
-                                        <h3>Episode {{ $episode->episode_number }} - {{ $episode->name }}</h3>
+                                        <h3>EP{{ $episode->episode_number }} - {{ $episode->name }}</h3>
                                         <p>{{ $episode->overview }}</p>
                                     </div>
                                 @endforeach

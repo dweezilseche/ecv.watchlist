@@ -227,11 +227,6 @@ article:hover #addlist-btn {
   opacity: 1;
 }
 
-#seen-btn {
-  width: 40px;
-  height: 40px;
-}
-
 .cache {
   position: absolute;
   width: 100%;
@@ -248,8 +243,7 @@ article:hover #addlist-btn {
 
 input[type=submit],
 #addlist-btn,
-#vu-btn,
-#seen-btn {
+#vu-btn {
   border: none;
   background-color: #e50914;
   color: #fff;
@@ -259,8 +253,7 @@ input[type=submit],
 }
 input[type=submit]:hover,
 #addlist-btn:hover,
-#vu-btn:hover,
-#seen-btn:hover {
+#vu-btn:hover {
   background-color: #fff;
   cursor: pointer;
   color: #000;
@@ -467,18 +460,20 @@ input[type=text] {
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.084);
 }
 .detail_movie .episode_list h3 {
-  margin-bottom: 8px;
   color: #d1d1d1;
+  grid-area: title;
 }
 .detail_movie .episode_list p {
   color: #5e5d5d;
+  grid-area: overview;
 }
 .detail_movie .episode_list .episode {
   margin-bottom: 32px;
   transition: 1.4s cubic-bezier(0.06, 0.645, 0, 0.985);
-}
-.detail_movie .episode_list .episode:hover {
-  transform: translateX(8px);
+  display: grid;
+  column-gap: 16px;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "btn  title" ".  overview";
 }
 .detail_movie .boutons_infos {
   grid-area: boutons;
@@ -489,6 +484,23 @@ input[type=text] {
 .detail_movie .boutons_infos input[type=submit] {
   width: 100%;
   border-radius: 8px;
+}
+
+#seen-btn {
+  width: 40px;
+  height: 40px;
+  grid-area: btn;
+  border: 1px dashed #b6b3b3;
+  background: none;
+  color: #b6b3b3;
+  font-family: "Satoshi-Variable";
+  border-radius: 50px;
+  transition: 1.4s cubic-bezier(0.06, 0.645, 0, 0.985);
+}
+#seen-btn:hover {
+  background-color: #fff;
+  cursor: pointer;
+  color: #000;
 }
 
 .gradient {
