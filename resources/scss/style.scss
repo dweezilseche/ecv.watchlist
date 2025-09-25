@@ -114,7 +114,7 @@ nav {
     color: #fff;
     border-radius: 0;
     padding: 16px;
-    width: 200px;
+    width: 180px;
 
     &::placeholder {
       color: #fff;
@@ -651,6 +651,10 @@ input[type="text"] {
   &:focus {
     color: #fff;
   }
+}
+
+#search-btn.larger {
+  width: 250px !important;
 }
 
 .search_result {

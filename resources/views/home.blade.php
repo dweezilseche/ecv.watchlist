@@ -8,7 +8,7 @@
     @if ($movies_data)
 
         <div class="box_home">
-            <h2>Mes films</h2>
+            <h2>Mes films ({{ $movies_data->count() }})</h2>
             <section class="box_movies">
                 @foreach ($movies_data as $movie)
                     <a href="{{ Route('movies.detail', $movie->id) }}">
@@ -33,7 +33,7 @@
 
 
         <div class="box_home less_padding">
-            <h2>Mes séries</h2>
+            <h2>Mes séries ({{ $series_data->count() }})</h2>
             <section class="box_movies">
                 @foreach ($series_data as $serie)
                     <a href="{{ Route('series.detail', $serie->id) }}">

@@ -67,7 +67,7 @@ nav input[type=text] {
   color: #fff;
   border-radius: 0;
   padding: 16px;
-  width: 200px;
+  width: 180px;
 }
 nav input[type=text]::placeholder {
   color: #fff;
@@ -554,6 +554,10 @@ input[type=text] {
 }
 #search-btn:focus {
   color: #fff;
+}
+
+#search-btn.larger {
+  width: 250px !important;
 }
 
 .search_result {

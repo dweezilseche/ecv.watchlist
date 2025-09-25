@@ -74,6 +74,22 @@ class SerieController extends Controller
         }
     }
 
+    public function getSearch(Request $request) {
+        $query = $request->input('search');
+        // dd($query);
+        if ($query) {
+            $series_data = $this->getCurlData('/search/tv?query=' . urlencode($query) . '&language=fr-FR&page=1');
+        } else {
+            $series_data = (object) ['results' => []];
+        }
+
+        return view('series.list', [
+            'series_data' => $series_data,
+            'search_result' => $query,
+            'page_title' => 'Résultats de la recherche',
+        ]);
+    }
+
 
     public function setSerieSeen(Request $request) {
         if ($request->has('id_serie')) {
@@ -130,6 +146,23 @@ class SerieController extends Controller
             $serie->overview = $serie_data->overview;
             $serie->seasons = $serie_data->number_of_seasons;
             $serie->episodes = $serie_data->number_of_episodes;
+
+            // RÉCUPÉRER TOUTES LES SAISONS ET ÉPISODES
+            $all_seasons = [];
+            for ($season_number = 1; $season_number <= $serie_data->number_of_seasons; $season_number++) {
+                $season_data = $this->getCurlData("/tv/{$request->input('serie_id')}/season/{$season_number}?language=fr-FR");
+                if ($season_data) {
+                    // Store only essential data instead of full API response
+                    
+                    $all_seasons[] = [
+                        'id' => $season_data->id,
+                        'name' => $season_data->name,
+                        'season_number' => $season_data->season_number,
+                    ];
+                }
+            }
+            $serie->all_seasons = json_encode($all_seasons);
+            
             $serie->save();
             
             //ACTEUR (on enregitre les acteurs dans notre db)

@@ -35,6 +35,7 @@ return new class extends Migration
             $table->mediumText('overview')->nullable();
             $table->string('seasons')->nullable();
             $table->string('episodes')->nullable();
+            $table->longText('all_seasons')->nullable();
             $table->boolean('seen')->default(0);
             $table->timestamps();
             $table->softDeletes();

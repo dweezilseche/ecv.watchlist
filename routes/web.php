@@ -33,6 +33,7 @@ Route::controller(SerieController::class)->prefix('/series')->name('series.')->g
     Route::get('/detail/{serie}', 'getSeriesDetails')->name('detail');
     Route::post('/seen', 'setSerieSeen')->name('seen');
     Route::post('/store', 'storeSerie')->name('store');
+    Route::get('/search', 'getSearch')->name('search');
 
 });
 

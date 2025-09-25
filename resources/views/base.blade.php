@@ -42,7 +42,9 @@
         @if (Route::currentRouteName() === 'movies.detail_tmdb' ||
                 Route::currentRouteName() === 'series.detail_tmdb' ||
                 Route::currentRouteName() === 'movies.detail' ||
-                Route::currentRouteName() === 'series.detail')
+                Route::currentRouteName() === 'series.detail' ||
+                Route::currentRouteName() === 'movies.search' ||
+                Route::currentRouteName() === 'series.search')
             <div id="back_btn">
                 <a href="{{ url()->previous() }}"><i class="fa-solid fa-chevron-left"></i> Retour</a>
             </div>
@@ -66,14 +68,38 @@
             </div>
         @endif
 
-
-        <form action="{{ Route('movies.search') }}" method="GET" id="search-form">
-            <input type="text" name="search" placeholder="Rechercher une série/film" id="search-btn">
-            <button type="submit" id="submit-search-btn">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-            {{-- <input type="submit" value="Rechercher" id="submit-search-btn"> --}}
-        </form>
+        {{-- Barre de recherche --}}
+        @if (Route::currentRouteName() === 'movies.popular' ||
+                Route::currentRouteName() === 'movies.top' ||
+                Route::currentRouteName() === 'movies.search' ||
+                Route::currentRouteName() === 'movies.detail_tmdb' ||
+                Route::currentRouteName() === 'movies.detail')
+            <form action="{{ Route('movies.search') }}" method="GET" id="search-form">
+                <input type="text" name="search" placeholder="Rechercher un film" id="search-btn">
+                <button type="submit" id="submit-search-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        @elseif (Route::currentRouteName() === 'series.popular' ||
+                Route::currentRouteName() === 'series.top' ||
+                Route::currentRouteName() === 'series.search' ||
+                Route::currentRouteName() === 'series.detail_tmdb' ||
+                Route::currentRouteName() === 'series.detail')
+            <form action="{{ Route('series.search') }}" method="GET" id="search-form">
+                <input type="text" name="search" placeholder="Rechercher une série" id="search-btn">
+                <button type="submit" id="submit-search-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        @elseif (Route::currentRouteName() === 'home')
+            <form action="{{ Route('movies.search') }}" method="GET" id="search-form">
+                <input type="text" name="search" placeholder="Rechercher un film ou une série" id="search-btn"
+                    class="larger">
+                <button type="submit" id="submit-search-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        @endif
 
 
         <ul>

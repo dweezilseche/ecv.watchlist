@@ -19,8 +19,13 @@ class Serie extends Model {
         'overview',
         'seasons',
         'episodes',
+        'all_seasons',
     ];
     
+    protected $casts = [
+        'all_seasons' => 'array',
+    ];
+
     public function genres(): BelongsToMany {
         return $this->belongsToMany(Genre::class);
     }

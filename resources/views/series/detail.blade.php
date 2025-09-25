@@ -95,6 +95,20 @@
                         <h2>Storyline</h2>
                         <p>{{ $serie_data->overview }}</p>
                     </div>
+
+                    <div class="all_episodes">
+                        <h2>Tous les épisodes</h2>
+                        <select name="seasons" id="season_selector">
+                            <option value="season_1">Saison 1</option>
+                        </select>
+
+                        <div class="episode">
+                            <h3>Episode XX - Titre de l'épisode</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo qui sapiente aut
+                                exercitationem, delectus blanditiis itaque vero, modi fugiat tempore libero consequuntur
+                                soluta quia, laboriosam maiores saepe quam obcaecati. Dicta?</p>
+                        </div>
+                    </div>
                 </div>
 
             </div>

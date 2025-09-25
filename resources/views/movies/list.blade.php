@@ -17,28 +17,31 @@
 
         <section class="box_movies results">
             @foreach ($movies_data->results as $movie)
-                <article>
-                    {{-- <h2>{{ $movie->title }}</h2> --}}
-                    <div class="box_poster">
-                        <img width="100%" src="https://image.tmdb.org/t/p/w500/{{ $movie->poster_path }}"
-                            alt="{{ $movie->title }}">
-                    </div>
-                    {{-- <small>{{ $movie->id }}</small> --}}
+                <a href="{{ route('movies.detail_tmdb', ['movie' => $movie->id]) }}">
+                    <article>
+                        <div class="box_poster">
+                            <img width="100%" src="https://image.tmdb.org/t/p/w500/{{ $movie->poster_path }}"
+                                alt="{{ $movie->title ?? $movie->name }}">
+                            <div class="cache"></div>
+                        </div>
 
-                    <form action="{{ Route('movies.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="movie_id" value="{{ $movie->id }}">
-                        <input type="submit" name="save_movie" value="À voir" id="addlist-btn">
-                    </form>
+                        <form action="{{ Route('movies.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="movie_id" value="{{ $movie->id }}">
+                            <button type="submit" id="addlist-btn" class="btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </form>
 
-                    <form action="{{ Route('movies.detail', [$movie->id]) }}" method="GET">
-                        @csrf
-                        <input type="hidden" name="movie_id" value="{{ $movie->id }}">
-                        <input type="submit" name="see_details" value="Voir plus" id="detail-btn">
-                    </form>
+                        <form action="{{ Route('movies.detail', ['movie' => $movie->id]) }}" method="GET">
+                            @csrf
+                            <input type="hidden" name="movie_id" value="{{ $movie->id }}">
+                            <input type="submit" name="see_details" value="Voir plus +" id="detail-btn">
+                        </form>
 
 
-                </article>
+                    </article>
+                </a>
             @endforeach
         </section>
     @endif
