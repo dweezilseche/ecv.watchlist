@@ -57,9 +57,13 @@ nav ul li a {
   text-decoration: none;
   color: #565656;
   font-size: 16px;
+  transition: 0.3s ease-in-out;
 }
 nav ul li a.active {
-  color: #fff;
+  color: #e6e6e6;
+}
+nav ul li a:hover {
+  color: #e6e6e6;
 }
 nav input[type=text] {
   background: none;
@@ -82,7 +86,8 @@ nav input[type=text]::placeholder {
   justify-self: start;
 }
 
-#genre {
+#genre,
+#season_selector {
   background: none;
   width: 200px;
   color: #fff;

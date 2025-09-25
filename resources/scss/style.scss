@@ -100,9 +100,14 @@ nav {
         text-decoration: none;
         color: $text-dark;
         font-size: 16px;
+        transition: $transition-quick;
 
         &.active {
-          color: #fff;
+          color: $text-light;
+        }
+
+        &:hover {
+          color: $text-light;
         }
       }
     }
@@ -131,7 +136,8 @@ nav {
   justify-self: start;
 }
 
-#genre {
+#genre,
+#season_selector {
   background: none;
   width: 200px;
   color: #fff;
