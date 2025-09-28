@@ -33,6 +33,7 @@
 
 
         <div class="box_home less_padding">
+            {{-- @dd($series_data->count()) --}}
             <h2>Mes séries ({{ $series_data->count() }})</h2>
             <section class="box_movies">
                 @foreach ($series_data as $serie)
@@ -45,6 +46,19 @@
                                     <i class="fa-solid fa-check"></i>
                                 </button>
                             </form>
+
+                            <div class="box_poster">
+                                <img src="{{ Storage::url('poster/serie/cover/' . $serie->id . '.jpg') }}"
+                                    alt="{{ $serie->name }}">
+                            </div>
+                        </article>
+                    </a>
+                @endforeach
+
+                @foreach ($series_completed as $serie)
+                    <a href="{{ Route('series.detail', $serie->id) }}">
+                        <article class="serie completed">
+
 
                             <div class="box_poster">
                                 <img src="{{ Storage::url('poster/serie/cover/' . $serie->id . '.jpg') }}"

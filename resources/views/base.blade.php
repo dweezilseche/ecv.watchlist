@@ -29,6 +29,7 @@
                         <option value="">Choisir un genre</option>
                         @foreach ($genresWithCount as $genre)
                             <option value="{{ $genre->id }}">
+                                {{ old('genre', request()->get('genre')) == $genre->id ? 'selected' : '' }}>
                                 {{ $genre->name }} ({{ $genre->movies_count }})
                             </option>
                         @endforeach
@@ -71,7 +72,7 @@
             </div>
         @endif
 
-        {{-- Barre de recherche --}}
+        {{-- Barres de recherche --}}
         @if (Route::currentRouteName() === 'movies.popular' ||
                 Route::currentRouteName() === 'movies.top' ||
                 Route::currentRouteName() === 'movies.search' ||
@@ -89,14 +90,14 @@
                 Route::currentRouteName() === 'series.detail_tmdb' ||
                 Route::currentRouteName() === 'series.detail' ||
                 Route::currentRouteName() === 'series.filter.episodes')
-            <form action="{{ Route('series.search') }}" method="GET" id="search-form">
+            <form action="{{ route('series.search') }}" method="GET" id="search-form">
                 <input type="text" name="search" placeholder="Rechercher une série" id="search-btn">
                 <button type="submit" id="submit-search-btn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
-        @elseif (Route::currentRouteName() === 'home')
-            <form action="{{ Route('movies.search') }}" method="GET" id="search-form">
+        @elseif (Route::currentRouteName() === 'home' || Route::currentRouteName() === 'genres.genre')
+            <form action="{{ route('movies.search') }}" method="GET" id="search-form">
                 <input type="text" name="search" placeholder="Rechercher un film ou une série" id="search-btn"
                     class="larger">
                 <button type="submit" id="submit-search-btn">

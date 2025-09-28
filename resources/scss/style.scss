@@ -294,6 +294,11 @@ article {
   }
 }
 
+.completed .box_poster img {
+  filter: grayscale(100%) !important;
+  opacity: 0.4;
+}
+
 .cache {
   position: absolute;
   width: 100%;
@@ -842,21 +847,22 @@ table {
 }
 
 // Responsive Design
-@media (max-width: 1300px) {
-  .box_movies {
-    @include grid-responsive(4);
-  }
-}
 
-@media (max-width: 900px) {
-  .box_movies {
-    @include grid-responsive(2);
-    max-width: calc(2 * 250px + 1 * 2px);
-  }
-}
 
 @media (max-width: 600px) {
+
+  // Navigation
+  nav {
+    width: 90%;
+    padding: 8px 16px;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 34px;
+    @include glassmorphism;
+  }
+
   .box_movies {
-    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
   }
 }

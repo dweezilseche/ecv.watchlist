@@ -18,6 +18,7 @@ class SerieController extends Controller
     public function home() {
         // dd('test');
         $series = Serie::where('seen', 0)->with('genres')->get()->unique('id_serie_tmdb');
+        $series_completed = Serie::where('seen', 1)->with('genres')->get()->unique('id_serie_tmdb');
         $genres = $series->flatMap->genres->unique('id');
         $genresWithCount = Genre::withCount('series')->get();
 
@@ -25,6 +26,7 @@ class SerieController extends Controller
 
         return view('home', [
             'series_data' => $series,
+            'series_completed' => $series_completed,
             'genres' => $genres,
             'genresWithCount' => $genresWithCount,
         ]);

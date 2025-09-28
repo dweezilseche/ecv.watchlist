@@ -232,6 +232,11 @@ article:hover #addlist-btn {
   opacity: 1;
 }
 
+.completed .box_poster img {
+  filter: grayscale(100%) !important;
+  opacity: 0.4;
+}
+
 .cache {
   position: absolute;
   width: 100%;
@@ -733,28 +738,21 @@ table th {
   font-weight: 500;
 }
 
-@media (max-width: 1300px) {
-  .box_movies {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(200px, 1fr));
-    justify-content: center;
-    align-items: center;
-    gap: 2px;
-  }
-}
-@media (max-width: 900px) {
-  .box_movies {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(200px, 1fr));
-    justify-content: center;
-    align-items: center;
-    gap: 2px;
-    max-width: 502px;
-  }
-}
 @media (max-width: 600px) {
+  nav {
+    width: 90%;
+    padding: 8px 16px;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 34px;
+    background: rgba(99, 104, 114, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.188);
+  }
   .box_movies {
-    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
   }
 }
 

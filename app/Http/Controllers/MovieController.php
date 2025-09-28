@@ -15,17 +15,23 @@ use Illuminate\Pagination\Paginator;
 class MovieController extends Controller {
 
     public function home() {
+        // Movies 
         $movies = Movie::where('seen', 0)->with('genres')->get()->unique('id_movie_tmdb');
-        $genres = $movies->flatMap->genres->unique('id');
-        $genresWithCount = Genre::withCount('movies')->get();
+        
+        // Series 
         $series = Serie::where('seen', 0)->with('genres')->get()->unique('id_serie_tmdb');
+        $series_completed = Serie::where('seen', 1)->with('genres')->get()->unique('id_serie_tmdb');
+        
+        // dd($series);
 
-
-        // dd($genresWithCount);
+        // Genres 
+        $genres = $movies->flatMap->genres->merge($series->flatMap->genres)->unique('id');
+        $genresWithCount = Genre::withCount(['movies', 'series'])->get();
 
         return view('home', [
             'movies_data' => $movies,
             'series_data' => $series,
+            'series_completed' => $series_completed,
             'genres' => $genres,
             'genresWithCount' => $genresWithCount,
         ]);
